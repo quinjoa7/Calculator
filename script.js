@@ -1,24 +1,24 @@
 //STORED VALUES
-let displayValue = '';
-let valueArray = [];
-let result = 0;
+let valueArray = [];    //stores operation values (firstNumber, operationSymbol, secondNumber)
+let result = 0;         //stores the result to display
 
 //SCREEN ELEMENTS
 const topScreen = document.getElementById('top');
 const botScreen = document.getElementById('bot');
+topScreen.textContent = ''; //textContent.length = 17 without it i dont know why
+botScreen.textContent = '';
 
 //NUMPAD BUTTONS
     //add number buttons
 for (let i = 0; i <= 9; i++) {
     const num = document.getElementById(String(i));
     num.addEventListener('click', function() {
-        toBotScreen(String(i));
+        toTopScreen(String(i));
     })
 }
     //add decimal button
 const pointbtn = document.getElementById('pointbtn');
 pointbtn.addEventListener('click', function() {
-    addIfInexistent('.');
 })
     //add delete button
 const delbtn = document.getElementById('delbtn');
@@ -30,7 +30,7 @@ delbtn.addEventListener('click', function() {
     //add clear button
 const clearbtn = document.getElementById('clearbtn');
 clearbtn.addEventListener('click', function() {
-    clearScreen();
+    clearAll();
 })
     //add operator buttons
 const operators = document.getElementsByClassName('optrs');
@@ -42,7 +42,7 @@ for (let i = 0; i <= 3; i++) {
     ////add equals button
 const equalsbtn = document.getElementById('equalsbtn');
 equalsbtn.addEventListener('click', function() {
-
+    equalize();
 })
 
 //FUNCTIONS
@@ -80,27 +80,54 @@ const operate = function() {
 }
 
 const deleteLast = function() {
-    botScreen.innerText = botScreen.innerText.slice(0,-1);
-    displayValue = botScreen.innerText;
+    topScreen.innerText = topScreen.innerText.slice(0,-1);
 }
 
-const clearScreen = function(){ 
-    botScreen.innerText = "";
+const clearTop = function() {
     topScreen.innerText = "";
-    displayValue = "";
+}
+const clearBot = function() {
+    botScreen.innerText = "";
+}
+const clearAll = function(){ 
+    clearTop();
+    clearBot();
 }
 
 const addOperator = function(a) {
-    //if (!displayValue.match(/[/*-+]/)) {
-    //    toBotScreen(' ' + a + ' ');
-    //}
+    setValueArray();
+    if (topScreen.innerText === '') {   //dont add operator in empty screen
+        return;
+    } else if (topScreen.innerText.match(/[/*-+\-]/) && valueArray[2] === undefined) {  //dont add more than 1 operator
+        return;
+    }
+
+    if (!topScreen.innerText.match(/[/*-+\-]/)) {   //adds operator if it doesnt exist
+        toTopScreen(' ' + a + ' ');
+    } else {    //solves the operation if you have one in the screen and you press an operation button
+        equalize();
+        clearTop();
+        toTopScreen(botScreen.innerText + ' ' + a + ' ');
+    }
 }
 
-
-const toBotScreen = function(a) {
-    botScreen.innerText += a;
+const equalize = function() {   //solves the operation in top screen
+    if (!topScreen.innerText.includes('=')) {
+        setValueArray();
+        toTopScreen(' =');
+        operate();
+        toBotScreen(result);
+    }
 }
 
-const toTopScreen = function(a) {
-    topScreen.innerText += ' ' + botScreen.innerText + a;
+const setValueArray = function() { 
+    valueArray = topScreen.innerText.split(' ');
+}
+
+const toBotScreen = function(a) {   //add text to top screen
+    botScreen.innerText = a;
+}
+
+const toTopScreen = function(a) {   //add text to bot screen
+    topScreen.textContent += a;     //innerText doesnt consider the last ' '
 }
