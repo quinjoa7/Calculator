@@ -15,11 +15,20 @@ body {
 
 #screen {
     background-color: rgb(45, 61, 61);
-    height: 100px;
+    height: 125px;
     width: 300px;
     margin: 15px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#separator {
+    width: 90%;
+    height: 1px;
+    background-color: rgb(73, 114, 114);
 }
 
 #buttons {
@@ -51,10 +60,10 @@ body {
     flex-direction: column;
 }
 
-#restart {
+#clear {
 }
 
-#restartbtn {
+#clearbtn {
     background-color: orangered;
     width: 100px;
     height: 60px;
