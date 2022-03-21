@@ -1,41 +1,67 @@
+html {
+    margin: 0px;
+    min-height: 100%;
+    width: 100%;
+}
 body {
     background-color: rgb(0, 61, 61);
+    display: flex;
     text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
 }
 
-#main {
+#calculator {
     background-color: rgb(0, 94, 94);
     display: flex;
     flex-direction: column;
-    height: 800px;
-    width: 400px;
-    justify-content: center;
+    height: 650px;
+    width: 500px;
+    justify-content: space-between;
     align-items: center;
+    margin: 50px;
 }
 
 #screen {
     background-color: rgb(45, 61, 61);
     height: 125px;
-    width: 300px;
-    margin: 15px;
+    width: 90%;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: rgb(102, 160, 160);
 }
-
+#top,
+#bot {
+    height: 124px;
+    max-width: 90%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 30px;
+}
 #separator {
     width: 90%;
     height: 1px;
-    background-color: rgb(73, 114, 114);
+    background-color: rgb(102, 160, 160);
 }
+
 
 #buttons {
     display: flex;
     flex-direction: row;
     margin: 15px;
-    max-width: 300px;
+    width: 90%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
 
 .btn {
@@ -48,11 +74,11 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 200px;
+    width: 240px;
 }
 #numbers .btn {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
 }
 
 #functions {
@@ -60,29 +86,46 @@ body {
     flex-direction: column;
 }
 
-#clear {
-}
-
 #clearbtn {
     background-color: orangered;
-    width: 100px;
-    height: 60px;
+    width: 160px;
+    height: 80px;
 }
 
 #operators {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 100px;
+    max-width: 160px;
 }
 #operators .btn {
-    width: 50px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
 }
 
 #equalsbtn {
     background-color: orangered;
+    width: 160px;
+    height: 80px;
+}
+
+#me {
+    background-color: rgb(0, 94, 94);
+    height: 30px;
     width: 100px;
-    height: 60px;
-    pos
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    margin-bottom: 15px;
+    font-family: sans-serif;
+    gap: 3px;
+    text-decoration: none;
+}
+a {
+    text-decoration: none;
+}
+#gitLogo {
+  height: 30px;
+  width: auto;
 }

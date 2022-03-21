@@ -119,10 +119,14 @@ const addOperator = function(a) {
 const addDecimal = function() {
     setValueArray();
     if (!topScreen.innerText.includes('=')) {   //only add one '.' per number
-        if (!valueArray[0].includes('.') && valueArray[2] === undefined) {
+        if (!valueArray[0].includes('.') && valueArray[2] === undefined) {  //put a '.' in the first number if ther isnt one
             toTopScreen('.');
-        } else if (!valueArray[2].includes('.')) {
-            toTopScreen('.');
+        } else {
+            if (valueArray[2] != undefined && !valueArray[2].includes('.')) {   //put a '.' in the second number if ther isnt one
+                toTopScreen('.');
+            } else if (valueArray[1] != undefined && valueArray[2] === undefined) { //allows to start second number with
+                toTopScreen('.');
+            }
         }
     } else {    //adds '.' directly to the result
         if (!botScreen.textContent.includes('.')) {
@@ -134,8 +138,9 @@ const addDecimal = function() {
 }
 
 const equalize = function() {   //solves the operation in top screen
-    if (!topScreen.innerText.includes('=')) {
-        setValueArray();
+    setValueArray();
+    if (!topScreen.innerText.includes('=') && topScreen.innerText != '' &&
+        valueArray.length === 3) {  //dont start if you dont have 2 values to operate
         toTopScreen(' =');
         operate();
         toBotScreen(result);
