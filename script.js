@@ -19,6 +19,7 @@ for (let i = 0; i <= 9; i++) {
     //add decimal button
 const pointbtn = document.getElementById('pointbtn');
 pointbtn.addEventListener('click', function() {
+    addDecimal();
 })
     //add delete button
 const delbtn = document.getElementById('delbtn');
@@ -79,8 +80,12 @@ const operate = function() {
     }
 }
 
-const deleteLast = function() {
-    topScreen.innerText = topScreen.innerText.slice(0,-1);
+const deleteLast = function() { //deletes last input depending on what it is without leaving any spaces
+    if (topScreen.innerText.slice(-1) === ' ' || topScreen.innerText.slice(-1).match(/[/*-+\-]/)) {
+        topScreen.innerText = topScreen.innerText.slice(0,-2);
+    } else {
+        topScreen.innerText = topScreen.innerText.slice(0,-1);
+    }
 }
 
 const clearTop = function() {
@@ -111,6 +116,23 @@ const addOperator = function(a) {
     }
 }
 
+const addDecimal = function() {
+    setValueArray();
+    if (!topScreen.innerText.includes('=')) {   //only add one '.' per number
+        if (!valueArray[0].includes('.') && valueArray[2] === undefined) {
+            toTopScreen('.');
+        } else if (!valueArray[2].includes('.')) {
+            toTopScreen('.');
+        }
+    } else {    //adds '.' directly to the result
+        if (!botScreen.textContent.includes('.')) {
+            clearTop();
+            toTopScreen(botScreen.textContent + '.');
+        }
+    }
+
+}
+
 const equalize = function() {   //solves the operation in top screen
     if (!topScreen.innerText.includes('=')) {
         setValueArray();
@@ -129,5 +151,10 @@ const toBotScreen = function(a) {   //add text to top screen
 }
 
 const toTopScreen = function(a) {   //add text to bot screen
-    topScreen.textContent += a;     //innerText doesnt consider the last ' '
+    if (topScreen.innerText.includes('=')) {    //new input if you have a finished operation on screen
+        clearAll();
+        topScreen.textContent += a;
+    } else {
+        topScreen.textContent += a;     //innerText doesnt consider the last ' ' when adding operator
+    }
 }
